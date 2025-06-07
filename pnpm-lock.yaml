@@ -23,9 +23,6 @@ importers:
       cookie-parser:
         specifier: ~1.4.4
         version: 1.4.7
-      crypto:
-        specifier: ^1.0.1
-        version: 1.0.1
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -50,6 +47,9 @@ importers:
       morgan:
         specifier: ~1.9.1
         version: 1.9.1
+      nodemailer:
+        specifier: ^7.0.3
+        version: 7.0.3
     devDependencies:
       '@eslint/js':
         specifier: ^9.28.0
@@ -410,10 +410,6 @@ packages:
 
   crypto-js@4.2.0:
     resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
-
-  crypto@1.0.1:
-    resolution: {integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==}
-    deprecated: This package is no longer supported. It's now a built-in Node module. If you've depended on crypto, you should switch to the one that's built-in.
 
   dayjs@1.11.13:
     resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
@@ -810,6 +806,10 @@ packages:
   neverthrow@7.2.0:
     resolution: {integrity: sha512-iGBUfFB7yPczHHtA8dksKTJ9E8TESNTAx1UQWW6TzMF280vo9jdPYpLUXrMN1BCkPdHFdNG3fxOt2CUad8KhAw==}
     engines: {node: '>=18'}
+
+  nodemailer@7.0.3:
+    resolution: {integrity: sha512-Ajq6Sz1x7cIK3pN6KesGTah+1gnwMnx5gKl3piQlQQE/PwyJ4Mbc8is2psWYxK3RJTVeqsDaCv8ZzXLCDHMTZw==}
+    engines: {node: '>=6.0.0'}
 
   nodemon@3.1.10:
     resolution: {integrity: sha512-WDjw3pJ0/0jMFmyNDp3gvY2YizjLmmOUQo6DEBY+JgdvW/yQ9mEeSw6H5ythl5Ny2ytb7f9C2nIbjSxMNzbJXw==}
@@ -1401,8 +1401,6 @@ snapshots:
 
   crypto-js@4.2.0: {}
 
-  crypto@1.0.1: {}
-
   dayjs@1.11.13: {}
 
   debug@2.6.9:
@@ -1798,6 +1796,8 @@ snapshots:
   negotiator@0.6.3: {}
 
   neverthrow@7.2.0: {}
+
+  nodemailer@7.0.3: {}
 
   nodemon@3.1.10:
     dependencies:
