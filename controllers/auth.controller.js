@@ -18,7 +18,7 @@ export const signUp = async (req, res, next) => {
     if (existingUser) {
       const error = new Error("User already exists");
       error.statusCode = 409;
-      throw error;
+      return next(error);
     }
 
     // Hash the password
@@ -41,10 +41,10 @@ export const signUp = async (req, res, next) => {
     });
 
     await session.commitTransaction();
-    session.endSession();
+    await session.endSession();
 
     res.status(201).json({
-      sucess: true,
+      success: true,
       message: "User create successfully",
       data: {
         token,
@@ -53,7 +53,7 @@ export const signUp = async (req, res, next) => {
     });
   } catch (error) {
     await session.abortTransaction();
-    session.endSession();
+    await session.endSession();
     next(error);
   }
 };
@@ -68,7 +68,7 @@ export const signIn = async (req, res, next) => {
     if (!user) {
       const error = new Error("User not found");
       error.statusCode = 404;
-      throw error;
+      return next(error);
     }
 
     // Check password
@@ -77,7 +77,7 @@ export const signIn = async (req, res, next) => {
     if (!isPasswordValid) {
       const error = new Error("Invalid password");
       error.statusCode = 401;
-      throw error;
+      return next(error);
     }
 
     // Generate JWT token
@@ -98,4 +98,16 @@ export const signIn = async (req, res, next) => {
   }
 };
 
-export const signOut = async (req, res, next) => {};
+export const signOut = async (req, res, next) => {
+  try {
+    // Invalidate the token by removing it from the client side
+    res.clearCookie("token");
+
+    res.status(200).json({
+      success: true,
+      message: "User signed out successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};

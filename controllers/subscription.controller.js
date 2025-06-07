@@ -1,3 +1,5 @@
+import {SERVER_URL} from "../config/env.js";
+import {workflowClient} from "../config/upstash.js";
 import Subscription from "../models/subscription.model.js";
 
 export const createSubscription = async (req, res, next) => {
@@ -14,10 +16,21 @@ export const createSubscription = async (req, res, next) => {
       user: req.user._id, // Assuming req.user is populated by an authentication middleware
     });
 
+    const { workflowRunId } = await workflowClient.trigger({
+      url: `${SERVER_URL}/api/v1/workflows/subscriptions/reminder`,
+      body: {
+        subscriptionId: subscription.id,
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+      retries: 0, // No retries for this trigger
+    });
+
     res.status(201).json({
       success: true,
       message: "Subscription created successfully",
-      data: subscription,
+      data: { subscription, workflowRunId }
     });
   } catch (error) {
     next(error);
@@ -66,15 +79,15 @@ export const getSubscriptionById = async (req, res, next) => {
   }
 };
 
-export const getUserSubcriptions = async (req, res, next) => {
+export const getUserSubscriptions = async (req, res, next) => {
   try {
-    // Check if the use the same as the one in the token
+    // Check if there use the same as the one in the token
     if (req.user.id !== req.params.id) {
       const error = new Error(
         "You are not authorized to view this user's subscriptions"
       );
       error.statusCode = 403; // Forbidden
-      throw error;
+      return next(error);
     }
 
     const subscriptions = await Subscription.find({user: req.user.id});

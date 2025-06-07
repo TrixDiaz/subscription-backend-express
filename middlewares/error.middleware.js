@@ -13,7 +13,7 @@ const errorMiddleware = (err, req, res, next) => {
       error.statusCode = 404;
     }
 
-    // Mongoose dulicate key error
+    // Mongoose duplicate key error
     if (err.code === 11000) {
       const message = `Duplicate field value entered: ${
         Object.keys(err.keyValue)[0]

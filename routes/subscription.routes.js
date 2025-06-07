@@ -4,7 +4,7 @@ import {
   createSubscription,
   getAllSubscriptions,
   getSubscriptionById,
-  getUserSubcriptions,
+  getUserSubscriptions,
 } from "../controllers/subscription.controller.js";
 
 const subscriptionRouter = Router();
@@ -29,7 +29,7 @@ subscriptionRouter.delete("/:id", (req, res) => {
 });
 
 // Fetch all subscriptions for a user
-subscriptionRouter.get("/user/:id", authorize, getUserSubcriptions);
+subscriptionRouter.get("/user/:id", authorize, getUserSubscriptions);
 
 // Cancel a subscription by ID
 subscriptionRouter.put("/:id/cancel", (req, res) => {

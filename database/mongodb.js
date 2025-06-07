@@ -8,7 +8,7 @@ if (!DB_URI) {
 }
 
 //Connect to Database
-const connecToDatabase = async () => {
+const connectToDatabase = async () => {
   try {
     await mongoose.connect(DB_URI);
 
@@ -19,4 +19,4 @@ const connecToDatabase = async () => {
   }
 };
 
-export default connecToDatabase;
+export default connectToDatabase;
