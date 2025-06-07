@@ -22,7 +22,7 @@ app.use("/api/v1/subscriptions", subscriptionRouter);
 app.use(errorMiddleware);
 
 app.get("/", (req, res) => {
-  res.send("Hello, World!");
+  res.send("Hello, World From Node and Express!");
 });
 
 app.listen(PORT, async () => {

@@ -24,7 +24,6 @@ const authrorize = async (req, res, next) => {
 
     // Verify the token
     const decoded = jwt.verify(token, JWT_SECRET);
-
     const user = await User.findById(decoded.userId);
 
     if (!user) {
@@ -34,6 +33,8 @@ const authrorize = async (req, res, next) => {
       });
     }
 
+    // Attach the user to the request object
+    req.user = user;
     next();
   } catch (error) {
     res.status(401).json({
