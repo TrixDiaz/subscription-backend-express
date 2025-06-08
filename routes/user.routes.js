@@ -1,5 +1,12 @@
 import {Router} from "express";
-import {getUser, getUsers} from "../controllers/user.controller.js";
+import {
+  deleteUser,
+  getUser,
+  getUsers,
+  storeUser,
+  updateUser,
+  updateUserPassword
+} from "../controllers/user.controller.js";
 import authorize from "../middlewares/auth.middleware.js";
 
 const userRouter = Router();
@@ -11,18 +18,15 @@ userRouter.get("/", getUsers);
 userRouter.get("/:id", authorize, getUser);
 
 // Create a new user
-userRouter.post("/", (req, res) => {
-  res.send("Store User");
-});
+userRouter.post("/", authorize, storeUser);
 
 // Update an existing user by ID
-userRouter.put("/:id", (req, res) => {
-  res.send("Update single User with ID: " + req.params.id);
-});
+userRouter.put("/:id", authorize, updateUser);
+
+// Update an existing user  password by ID
+userRouter.put("/:id/password", authorize, updateUserPassword);
 
 // Delete a user by ID
-userRouter.delete("/:id", (req, res) => {
-  res.send("Destroy single User with ID: " + req.params.id);
-});
+userRouter.delete("/:id", authorize, deleteUser);
 
 export default userRouter;
